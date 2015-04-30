@@ -2,6 +2,10 @@ language: java
 jdk:
   - oraclejdk8
 
+before_install:
+    - curl https://raw.githubusercontent.com/s4u/parent/travis/settings.xml -o ../settings.xml
+
+
 install: true
 
 script:
@@ -18,4 +22,5 @@ script:
 
 env:
     global:
-        - _MVN='mvn -B -V -e'
+        - _MVN='mvn -B -V -e -s ../settings.xml'
+        - secure: "MFG0Vc4n/k24wsUqkm5WMBUWnrgAVW286QSUx3qK50Vcnyyim8spEHvdPnlHWejpwtwsj1SLF6w2SiZ+gEorikfoL/ioMuIh2KvvWwe40tSQOdN68qPn/NGsAt/+sxMObHT+HPt0NGEUqeYVg7xWDpeUs7PW3jnqkbBH/n/nEvk="
