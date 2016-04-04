@@ -5,15 +5,14 @@ jdk:
 
 before_install:
     - curl https://raw.githubusercontent.com/s4u/parent/travis/settings.xml -o ../settings.xml
-    - ls -la .utils/
-    - openssl aes-256-cbc -K $encrypted_f29c5c677a17_key -iv $encrypted_f29c5c677a17_iv -in .utils/repo-key.enc -out ~/.ssh/id_rsa -d
-    - chmod 600 ~/.ssh/id_rsa
 
 
 
 install: true
 
 script:
+    - pwd
+    - env
     - export IS_RELEASE=`git log -1 --pretty=%s | grep "\[maven-release-plugin\] prepare release"`
     - echo "$IS_RELEASE"
     -
