@@ -5,12 +5,13 @@ jdk:
 
 before_install:
     - curl https://raw.githubusercontent.com/s4u/parent/travis/settings.xml -o ../settings.xml
-
-
+    - ./set_github_ssh_key.sh
+    - ./set_git_user.sh
 
 install: true
 
 script:
+    - cat /home/travis/build.sh
     - pwd
     - env
     - export IS_RELEASE=`git log -1 --pretty=%s | grep "\[maven-release-plugin\] prepare release"`
@@ -24,9 +25,6 @@ script:
                 $_MVN clean verify;
             fi
         fi
-
-after_success:
-    - ls -la ~/.ssh/
     - if [ -n "$DEPLOY_SITE" ]; then $_MVN site-deploy; fi
 
 env:
