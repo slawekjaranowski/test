@@ -3,35 +3,18 @@ language: java
 jdk:
   - oraclejdk8
 
-before_install:
-    - curl https://raw.githubusercontent.com/s4u/parent/travis/settings.xml -o ../settings.xml
-    - ./set_github_ssh_key.sh
-    - ./set_git_user.sh
-
-install: true
-
-script:
-    - cat /home/travis/build.sh
-    - pwd
-    - env
-    - export IS_RELEASE=`git log -1 --pretty=%s | grep "\[maven-release-plugin\] prepare release"`
-    - echo "$IS_RELEASE"
-    -
-        if [ -z "$TRAVIS_TAG" -a -z "$IS_RELEASE" ]; then
-            if [ "$TRAVIS_PULL_REQUEST" = "false" -a "$TRAVIS_BRANCH" = "master" ]; then
-                $_MVN clean install;
-                export DEPLOY_SITE=1;
-            else
-                $_MVN clean verify;
-            fi
-        fi
-    - if [ -n "$DEPLOY_SITE" ]; then $_MVN site-deploy; fi
-
-env:
-    global:
-        - _MVN='mvn -B -V -e -s ../settings.xml'
-
 cache:
   directories:
-  - $HOME/.m2
+  - $HOME/.m2/repository
+
+install:
+    - mkdir -p ../utils
+    - curl -Ls https://github.com/s4u/travis/archive/master.tar.gz \
+      | tar -zx --strip-components 2 -C ../utils travis-master/src
+
+
+script:
+    - ../utils/mvn-push.sh clean install # execute on push
+    - ../utils/mvn-pr.sh   clean verify  # execute on PR
+
 
