@@ -17,4 +17,7 @@ jobs:
     - name: Build maven
       run: mvn -B -V clean install
     - name: env
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        TEST1: ${{ secret.TEST1 }}
       run: env
