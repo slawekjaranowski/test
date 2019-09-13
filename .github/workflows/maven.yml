@@ -3,7 +3,7 @@ name: Java CI
 on: [push, pull_request]
 
 jobs:
-  build-jdk1.8:
+  build-jdk-1_8:
  
     runs-on: ubuntu-latest
     
