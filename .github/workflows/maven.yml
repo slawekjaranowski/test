@@ -19,5 +19,5 @@ jobs:
     - name: env
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        TEST1: ${{ secret.TEST1 }}
+        TEST1: ${{ secrets.TEST1 }}
       run: env
