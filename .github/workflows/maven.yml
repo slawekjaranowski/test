@@ -13,8 +13,10 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '11'
+          cache: 'maven'
+
 
       - name: Publish to GitHub Packages Apache Maven
-        run: mvn -V -B deploy
+        run: mvn -V -B -X deploy
         env:
           GITHUB_TOKEN: ${{ github.token }} # GITHUB_TOKEN is the default env for the password
